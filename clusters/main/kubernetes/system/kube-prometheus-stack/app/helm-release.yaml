@@ -45,7 +45,20 @@ spec:
       enabled: false
     prometheus:
       ingress:
-        enabled: false
+        enabled: true
+        ingressClassName: internal
+        annotations:
+          cert-manager.io/cluster-issuer: domain-0-le-prod
+          cert-manager.io/private-key-rotation-policy: Always
+        hosts:
+          - prometheus.${DOMAIN_0}
+        paths:
+          - /
+        pathType: Prefix
+        tls:
+          - secretName: prometheus-general-tls
+            hosts:
+              - prometheus.${DOMAIN_0}
       prometheusSpec:
         disableCompaction: true
         podMonitorSelectorNilUsesHelmValues: false
