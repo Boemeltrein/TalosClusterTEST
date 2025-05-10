@@ -47,14 +47,6 @@ spec:
             proxy_set_header X-Forwarded-Host $http_host;
         hosts:
           - host: grafana.${DOMAIN_0}
-            paths:
-              - path: /
-                pathType: Prefix
-              - path: /outpost.goauthentik.io
-                pathType: ImplementationSpecific
-                overrideService:
-                  name: authentik-server
-                  port: 80
         integrations:
           traefik:
             enabled: false
