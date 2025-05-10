@@ -39,6 +39,8 @@ spec:
       main:
         enabled: true
         ingressClassName: internal
+        annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         hosts:
           - host: auth.${DOMAIN_0}
 #          - host: "*.${DOMAIN_0}"
