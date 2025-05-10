@@ -43,10 +43,10 @@ spec:
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         hosts:
           - host: auth.${DOMAIN_0}
-#          - host: "*.${DOMAIN_0}"
-#            paths:
-#              - path: /outpost.goauthentik.io
-#                pathType: Prefix
+          - host: "*.${DOMAIN_0}"
+            paths:
+              - path: /outpost.goauthentik.io
+                pathType: Prefix
         integrations:
           traefik:
             enabled: false
