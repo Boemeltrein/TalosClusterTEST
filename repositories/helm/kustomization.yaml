@@ -4,6 +4,7 @@ metadata:
   name: helm-repos
   namespace: flux-system
 resources:
+  - authentik.yaml
   - bjw-s.yaml
   - cloudnative-pg.yaml
   - home-ops-mirror.yaml

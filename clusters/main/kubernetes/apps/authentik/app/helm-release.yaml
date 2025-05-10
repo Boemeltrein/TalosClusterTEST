@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: authentik
-      version: 31.4.0
+      version: 2025.4.0
       sourceRef:
         kind: HelmRepository
-        name: truecharts
+        name: authentik
         namespace: flux-system
       interval: 15m
   timeout: 20m
@@ -30,34 +30,33 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    TZ: Europe/Amsterdam
-
-    global:
-      stopAll: false    
-
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: internal
-        annotations:
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-          nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-          nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-        hosts:
-          - host: auth.${DOMAIN_0}
-          - host: "*.${DOMAIN_0}"
-            paths:
-              - path: "/outpost.goauthentik.io"
-                pathType: ImplementationSpecific
-        integrations:
-          traefik:
-            enabled: false
-          certManager:
-            enabled: true
-            certificateIssuer: domain-0-le-prod
-
     authentik:
-      credentials:
-        # Only works on initial install
-        email: test@example.com
-        password: password
+        secret_key: "bo7ZNcgLAoCZHuxQTs/o3Lx4UUZJpF3WGDq02XEWtdwvTN0MuplvQLH1ErvZWZIPu1va/bXhQz49hZOm⏎"
+        # This sends anonymous usage-data, stack traces on errors and
+        # performance data to sentry.io, and is fully opt-in
+        error_reporting:
+            enabled: false
+        postgresql:
+            password: "ThisIsNotASecurePassword"
+
+    server:
+        ingress:
+            # Specify kubernetes ingress controller class name
+            ingressClassName: internal
+            enabled: true
+            hosts:
+                - authentik.${DOMAIN_0}
+            annotations:
+              cert-manager.io/cluster-issuer: domain-0-le-prod
+              cert-manager.io/private-key-rotation-policy: Always
+            tls:
+              - hosts:
+                  - authentik.${DOMAIN_0}
+                secretName: authentik-webhook-tls-0
+
+    postgresql:
+        enabled: true
+        auth:
+            password: "ThisIsNotASecurePassword"
+    redis:
+        enabled: true
