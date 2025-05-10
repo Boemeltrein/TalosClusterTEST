@@ -31,7 +31,7 @@ spec:
     keepHistory: false
   values:
     authentik:
-        secret_key: "bo7ZNcgLAoCZHuxQTs/o3Lx4UUZJpF3WGDq02XEWtdwvTN0MuplvQLH1ErvZWZIPu1va/bXhQz49hZOm⏎"
+        secret_key: "vUf2u3qBdnLxGXbK2ZR+sZrxNVoA6dBwTCPOQzMgAxVw+hepnIXtsRibNzOyY9iYcEWXzdsoJYN9y8Po"
         # This sends anonymous usage-data, stack traces on errors and
         # performance data to sentry.io, and is fully opt-in
         error_reporting:
