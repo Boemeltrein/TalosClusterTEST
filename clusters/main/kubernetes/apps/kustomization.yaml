@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - kubernetes-dashboard/ks.yaml
   - grafana/ks.yaml
-  - authentik/ks.yaml
+  #- authentik/ks.yaml
