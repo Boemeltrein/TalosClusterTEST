@@ -52,7 +52,7 @@ spec:
             tls:
               - hosts:
                   - authentik.${DOMAIN_0}
-                secretName: authentik-webhook-tls-0
+                secretName: authentik-tls-0
 
     postgresql:
         enabled: true
