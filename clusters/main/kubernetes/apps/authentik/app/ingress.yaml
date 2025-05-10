@@ -5,7 +5,7 @@ metadata:
     namespace: authentik
 spec:
     rules:
-        - host: "*.${DOMAIN_0}"
+        - host: "grafana.${DOMAIN_0}"
           http:
               paths:
                   - path: /outpost.goauthentik.io
