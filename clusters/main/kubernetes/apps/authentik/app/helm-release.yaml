@@ -46,7 +46,7 @@ spec:
           - host: "*.${DOMAIN_0}"
             paths:
               - path: "/outpost.goauthentik.io"
-                pathType: Prefix
+                pathType: ImplementationSpecific
         integrations:
           traefik:
             enabled: false
