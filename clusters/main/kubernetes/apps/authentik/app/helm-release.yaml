@@ -57,6 +57,10 @@ spec:
             paths:
               - path: /outpost.goauthentik.io
                 pathType: ImplementationSpecific
+          - host: doublecommander.${DOMAIN_0}
+            paths:
+              - path: /outpost.goauthentik.io
+                pathType: ImplementationSpecific                
         integrations:
           traefik:
             enabled: false

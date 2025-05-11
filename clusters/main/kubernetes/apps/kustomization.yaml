@@ -7,3 +7,4 @@ resources:
   - librespeed/ks.yaml
   - authentik/ks.yaml
   - ext-truenas/ks.yaml
+  - doublecommander/ks.yaml
