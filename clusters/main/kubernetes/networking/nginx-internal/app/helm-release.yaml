@@ -62,7 +62,8 @@ spec:
         proxy-buffer-size: 16k
         ssl-protocols: TLSv1.3 TLSv1.2
         use-forwarded-headers: "true"
-        strict-validate-path-type: "false"
+        ## When you want to use Prefix path with a dot
+        # strict-validate-path-type: "false"
       metrics:
         enabled: true
         # serviceMonitor:

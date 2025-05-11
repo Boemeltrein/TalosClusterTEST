@@ -5,3 +5,4 @@ resources:
   - grafana/ks.yaml
  # - authentik-upstream/ks.yaml
   - librespeed/ks.yaml
+  - authentik/ks.yaml
