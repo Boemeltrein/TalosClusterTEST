@@ -45,6 +45,10 @@ spec:
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         hosts:
           - host: auth.${DOMAIN_0}
+          - host: librespeed.${DOMAIN_0}
+            paths:
+              - path: /outpost.goauthentik.io
+                pathType: ImplementationSpecific
         integrations:
           traefik:
             enabled: false
