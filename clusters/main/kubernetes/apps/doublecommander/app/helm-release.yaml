@@ -49,13 +49,3 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: domain-0-le-prod
-
-    cnpg:
-      main:
-        cluster:
-          singleNode: true
-    
-    configmap:
-      dashboard-nginx:
-        enabled: true
-
