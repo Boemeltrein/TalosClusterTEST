@@ -6,3 +6,4 @@ resources:
  # - authentik-upstream/ks.yaml
   - librespeed/ks.yaml
   - authentik/ks.yaml
+  - ext-truenas/ks.yaml
