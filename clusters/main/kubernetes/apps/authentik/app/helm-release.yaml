@@ -49,6 +49,10 @@ spec:
             paths:
               - path: /outpost.goauthentik.io
                 pathType: ImplementationSpecific
+          - host: truenas.${DOMAIN_0}
+            paths:
+              - path: /outpost.goauthentik.io
+                pathType: ImplementationSpecific
         integrations:
           traefik:
             enabled: false
