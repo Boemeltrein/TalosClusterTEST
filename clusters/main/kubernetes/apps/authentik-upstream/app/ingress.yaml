@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: authentik-outpost
-  namespace: authentik
+  namespace: authentik-upstream
 spec:
   rules:
   - host: "grafana.${DOMAIN_0}"

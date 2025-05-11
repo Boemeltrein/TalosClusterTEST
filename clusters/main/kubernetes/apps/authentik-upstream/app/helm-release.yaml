@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: authentik
-  namespace: authentik
+  name: authentik-upstream
+  namespace: authentik-upstream
 spec:
   interval: 15m
   chart:
