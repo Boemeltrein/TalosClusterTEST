@@ -32,8 +32,6 @@ spec:
   values:
     authentik:
         secret_key: "vUf2u3qBdnLxGXbK2ZR+sZrxNVoA6dBwTCPOQzMgAxVw+hepnIXtsRibNzOyY9iYcEWXzdsoJYN9y8Po"
-        # This sends anonymous usage-data, stack traces on errors and
-        # performance data to sentry.io, and is fully opt-in
         error_reporting:
             enabled: false
         postgresql:
@@ -41,7 +39,6 @@ spec:
 
     server:
         ingress:
-            # Specify kubernetes ingress controller class name
             ingressClassName: internal
             enabled: true
             hosts:
@@ -49,9 +46,6 @@ spec:
             annotations:
               cert-manager.io/cluster-issuer: domain-0-le-prod
               cert-manager.io/private-key-rotation-policy: Always
-              # nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-              # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-              # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
             tls:
               - hosts:
                   - authentik.${DOMAIN_0}
