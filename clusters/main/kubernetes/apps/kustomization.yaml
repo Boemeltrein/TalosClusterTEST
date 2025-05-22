@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - kubernetes-dashboard/ks.yaml
   - grafana/ks.yaml
- # - authentik-upstream/ks.yaml
   - librespeed/ks.yaml
   - authentik/ks.yaml
   - ext-truenas/ks.yaml
