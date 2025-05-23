@@ -2,8 +2,27 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - kubernetes-dashboard/ks.yaml
+  - minecraft-java/ks.yaml
+  - plex/ks.yaml
+  - prowlarr/ks.yaml
+  - radarr/ks.yaml
+  - sabnzbd/ks.yaml
+  - sonarr/ks.yaml
+  - ext-denon/ks.yaml
+  - ext-plugwise/ks.yaml
+  - ext-unifi/ks.yaml
   - grafana/ks.yaml
-  - librespeed/ks.yaml
-  - authentik/ks.yaml
+  - hermitcraft-java/ks.yaml
+  - minecraft-router/ks.yaml
   - ext-truenas/ks.yaml
-  - doublecommander/ks.yaml
+  - home-assistant/ks.yaml
+  - zwave-js-ui/ks.yaml
+  - webserver-dynmap/ks.yaml
+  - homepage/ks.yaml
+  - metube/ks.yaml
+  - lldap/ks.yaml
+  - authelia/ks.yaml
+  - truenas-exporter/ks.yaml
+  - librespeed/ks.yaml
+  - minecraft-border-hoarder/ks.yaml
+  - speedtest-tracker/ks.yaml

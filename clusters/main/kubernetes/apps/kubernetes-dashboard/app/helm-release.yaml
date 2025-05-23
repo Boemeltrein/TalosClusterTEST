@@ -30,6 +30,11 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    TZ: Europe/Amsterdam
+
+    global:
+      stopAll: false
+
     service:
       main:
         type: LoadBalancer
@@ -37,15 +42,21 @@ spec:
         ports:
           main:
             port: 80
+
     ingress:
       main:
         enabled: true
         ingressClassName: internal
         hosts:
-          - host: dashboard.${DOMAIN_0}
+          - host: dashboard.${BASE_DOMAIN}
         integrations:
           traefik:
             enabled: false
           certManager:
             enabled: true
-            certificateIssuer: domain-0-le-prod
+            certificateIssuer: cloudflare
+
+    configmap:
+      kubernetes-dashboard-settings:
+        data:
+          settings: '{"itemsPerPage":100,"defaultNamespace":"_all"}'

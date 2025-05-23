@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: grafana
-      version: 17.16.2
+      version: 18.0.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -18,7 +18,7 @@ spec:
   timeout: 20m
   maxHistory: 3
   driftDetection:
-    mode: enabled
+    mode: warn
   install:
     createNamespace: true
     remediation:
@@ -36,19 +36,14 @@ spec:
       main:
         enabled: true
         ingressClassName: internal
-        annotations:
-          nginx.ingress.kubernetes.io/auth-url: http://authentik-http.authentik.svc.cluster.local:10230/outpost.goauthentik.io/auth/nginx
-          nginx.ingress.kubernetes.io/auth-signin: https://grafana.${DOMAIN_0}/outpost.goauthentik.io/start?rd=$scheme://$http_host$escaped_request_uri
-          nginx.ingress.kubernetes.io/auth-response-headers: Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-entitlements,X-authentik-email,X-authentik-name,X-authentik-uid
-          nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Host $http_host;
         hosts:
-          - host: grafana.${DOMAIN_0}
+          - host: grafana.${BASE_DOMAIN}
         integrations:
           traefik:
             enabled: false
           certManager:
             enabled: true
-            certificateIssuer: domain-0-le-prod
+            certificateIssuer: cloudflare
 
     cnpg:
       main:

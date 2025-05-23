@@ -1,0 +1,104 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: speedtest-tracker
+  namespace: speedtest-tracker
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: speedtest-tracker
+      version: 7.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    TZ: Europe/Amsterdam
+
+    global:
+      stopAll: false
+
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                PUBLIC_DASHBOARD: false
+                CHART_DATETIME_FORMAT: "d.m H:i"
+                DATETIME_FORMAT: "d.m.Y H:i"
+                SPEEDTEST_SCHEDULE: "0 * * * *"
+                PRUNE_RESULTS_OLDER_THAN: 90
+                DISPLAY_TIMEZONE: "Europe/Amsterdam"
+                SPEEDTEST_SERVERS: "32582"
+
+    credentials:
+      minio:
+        type: s3
+        url: "${S3_URL}"
+        bucket: "taloscluster"
+        accessKey: "${S3_ACCESKEY}"
+        secretKey: "${S3_SECRETKEY}"
+        encrKey: "${S3_ENCRKEY}"
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - host: speedtest-tracker.${BASE_DOMAIN}
+        integrations:
+          traefik:
+            enabled: false
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
+          homepage:
+            enabled: true
+            group: "Network - Performance"
+            widget:
+              type: "speedtest"
+
+    persistence:
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: minio
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+
+    cnpg:
+      main:
+        cluster:
+          singleNode: true
+          mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
+        backups:
+          enabled: true
+          credentials: minio
+          retentionPolicy: "14d"
+          revision: "2"
+        recovery:
+          credentials: minio
+          revision: "1"
+        monitoring:
+          enablePodMonitor: true
