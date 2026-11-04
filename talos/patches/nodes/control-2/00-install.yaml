@@ -1,0 +1,20 @@
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+installer:
+  # Image Factory customization included in the schematic ID below:
+  # customization:
+  #     systemExtensions:
+  #         officialExtensions:
+  #             - siderolabs/iscsi-tools
+  #             - siderolabs/qemu-guest-agent
+  #             - siderolabs/util-linux-tools
+  # These comments are documentation only. To change the image, register the
+  # updated customization with Image Factory and replace the schematic ID below.
+  # Existing nodes require an image upgrade; genconfig/apply alone is not enough.
+  image: factory.talos.dev/metal-installer/88d1f7a5c4f1d3aba7df787c448c1d3d008ed29cfb34af53fa0df4336a56040b:${TALOS_VERSION}
+provisioning:
+  diskSelector:
+    # Exclude loop devices and installation media. Refine this to the intended
+    # disk's serial or dev_path when more than one writable disk matches.
+    match: disk.size <= 2000u * GB && disk.transport != "" && !disk.readonly && !disk.cdrom && !disk.dev_path.startsWith("/dev/loop")
+

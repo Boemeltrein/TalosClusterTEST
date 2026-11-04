@@ -14,7 +14,12 @@ nodes:
   - name: control-1
     role: control-plane
     address: ${CONTROL1IP}
-
+  - name: control-2
+    role: control-plane
+    address: ${CONTROL2IP}
+  - name: control-3
+    role: control-plane
+    address: ${CONTROL3IP}
   # Optional additional nodes:
   # Configure their addresses in kubernetes/config/cluster-secrets.sops.yaml and create matching
   # patches/nodes/<name>/ directories before enabling them.
