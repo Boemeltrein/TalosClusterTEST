@@ -1,0 +1,45 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: openebs
+  namespace: openebs
+spec:
+  interval: 1h
+  releaseName: openebs
+  chart:
+    spec:
+      chart: openebs
+      version: 4.6.2
+      sourceRef:
+        kind: HelmRepository
+        name: openebs
+        namespace: flux-system
+  values:
+    localpv-provisioner:
+      localpv:
+        # Also supplies the default openebs-hostpath StorageClass base path.
+        basePath: /var/mnt/openebs
+
+    openebs-crds:
+      csi:
+        volumeSnapshots:
+          enabled: false
+          keep: false
+
+    engines:
+      local:
+        # The lvm-localpv backend contains a duplicate of snapshot controller which will cause conflicts
+        lvm:
+          enabled: false
+        # The ZFS backend contains a duplicate of snapshot controller which will cause conflicts
+        zfs:
+          enabled: false
+      replicated:
+        # The Mayastor backend contains a duplicate of snapshot controller which will cause conflicts
+        mayastor:
+          enabled: false
+
+    loki:
+      enabled: false
+    alloy:
+      enabled: false

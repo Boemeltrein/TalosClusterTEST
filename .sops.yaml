@@ -1,0 +1,19 @@
+stores:
+  yaml:
+    indent: 2
+creation_rules:
+  - path_regex: ^kubernetes/.*\.(secret|sops)\.ya?ml$
+    encrypted_regex: "^(data|stringData)$"
+    mac_only_encrypted: true
+    age: age1x90m3krxd2j894uxc9jvwq6ljweqlncspecka7crc8lx9us3sa2sr5hkgp
+  - path_regex: ^talos/secrets\.sops\.ya?ml$
+    age: age1x90m3krxd2j894uxc9jvwq6ljweqlncspecka7crc8lx9us3sa2sr5hkgp
+# Compatibility with previous version of clustertool:
+  - path_regex: ^clusters.*kubernetes.*values.ya?ml$
+    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))"
+    age: age1x90m3krxd2j894uxc9jvwq6ljweqlncspecka7crc8lx9us3sa2sr5hkgp    
+  - path_regex: (^|/)clusterenv\.yaml$
+    age: age1x90m3krxd2j894uxc9jvwq6ljweqlncspecka7crc8lx9us3sa2sr5hkgp
+  - path_regex: (^|/)talsecret\.ya?ml$
+    age: age1x90m3krxd2j894uxc9jvwq6ljweqlncspecka7crc8lx9us3sa2sr5hkgp    
+

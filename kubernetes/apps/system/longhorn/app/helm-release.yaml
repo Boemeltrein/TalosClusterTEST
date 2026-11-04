@@ -1,0 +1,60 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: longhorn
+  namespace: longhorn-system
+spec:
+  interval: 1h
+  releaseName: longhorn
+  chart:
+    spec:
+      chart: longhorn
+      version: 1.13.0
+      sourceRef:
+        kind: HelmRepository
+        name: home-ops-mirror
+        namespace: flux-system
+  values:
+    defaultSettings:
+      # Matches the Talos UserVolumeConfig named longhorn.
+      defaultDataPath: /var/mnt/longhorn
+      # Increase to 3 for a multi-node cluster
+      defaultReplicaCount: "1"
+      # Overprovisioning might be needed when using volsync
+      storageOverProvisioningPercentage: "100000"
+      # Automatically upgrade volume engines after a Longhorn upgrade,
+      # so old engine images can be cleaned up
+      concurrentAutomaticEngineUpgradePerNodeLimit: "3"
+      # v2DataEngine: true
+    persistence:
+      # Set to false to pick another CSI as default
+      defaultClass: true
+      # Increase to 3 for a multi-node cluster
+      defaultClassReplicaCount: "1"
+    csi:
+      # Increase to 3 for a multi-node cluster
+      attacherReplicaCount: "1"
+      # Increase to 3 for a multi-node cluster
+      provisionerReplicaCount: "1"
+      # Increase to 3 for a multi-node cluster
+      resizerReplicaCount: "1"
+      # Increase to 3 for a multi-node cluster
+      snapshotterReplicaCount: "1"
+    longhornUI:
+      # Increase to 2 for a multi-node cluster
+      replicas: "1"
+    longhornGlobalManager:
+      # Increase to 3 for a multi-node cluster
+      replicas: "1"
+
+    # ingress:
+    #   enabled: true
+    #   ingressClassName: internal
+    #   host: longhorn.${DOMAIN_0}    
+    #   annotations:
+    #     cert-manager.io/cluster-issuer: domain-0-le-prod
+    #     cert-manager.io/private-key-rotation-policy: Always
+    #   path: /
+    #   pathType: ImplementationSpecific
+    #   tls: true
+    #   tlsSecret: longhorn-tls
